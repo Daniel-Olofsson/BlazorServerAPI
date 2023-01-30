@@ -1,0 +1,87 @@
+﻿@page "/"
+@using System.Text.Json;
+@inject HttpClient Http
+
+<p>@_activity</p>
+<button onclick=@(async () => await PrintWebApiResponse())>Print Web API Response</button>
+@*
+
+
+@if(apiData.Count > 20)
+{
+<p>hello</p>
+}
+
+@if(apiData.Any())
+{
+    foreach (var label in apiData)
+    {
+
+        <li>
+            @label
+        </li>
+
+    }
+}*@
+
+@functions {
+    public List<string> apiData = new List<string>();
+    public string _activity;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch data from API
+        await PrintWebApiResponse();
+
+    }
+
+
+    private async Task PrintWebApiResponse()
+    {
+        var response = await Http.GetStringAsync("https://www.boredapi.com/api/activity/");
+        Data? factData = JsonSerializer.Deserialize<Data>(response); //kolla upp
+        Console.WriteLine(response);
+        //Console.WriteLine(recipeData);
+        //Console.WriteLine(recipeData.hits[0].recipe.label);
+        Console.WriteLine(factData.activity);
+        //Console.WriteLine(recipeData.results);
+        _activity = factData.activity;
+        
+
+
+        /*for (int i = 0; i < recipeData.hits.Count; i++)
+            {
+            if (recipeData.hits[i].recipe != null && !string.IsNullOrEmpty(recipeData.hits[i].recipe.label))
+                {
+                //Console.WriteLine(recipeData.hits[i].recipe.label);
+                apiData.Add(recipeData.hits[i].recipe.label);
+
+        }
+        }
+        if (string.IsNullOrEmpty(response))
+            {
+            Console.WriteLine("Response is empty");
+        }*/
+    }
+    /*public class Data
+    {
+    public List<Hit> hits { get; set; }
+    }
+    public class Hit
+    {
+    public Recipe recipe {get; set;}
+    }
+    public class Recipe
+    {
+    public string label { get; set; }
+    }
+    */
+    public class Data
+    {
+        public string activity { get; set; }
+
+    }
+    
+
+
+}
