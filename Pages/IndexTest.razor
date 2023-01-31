@@ -2,8 +2,10 @@
 @using System.Text.Json;
 @using BlazorServerAPI.Models;
 @inject HttpClient Http
+@using Xunit;
 
-
+@* Write /test in url browser*@
+<h1>TEST</h1>
 <p>@_activity</p>
 <p>@_type</p>
 <button onclick=@(async () => await PrintWebApiResponse())>Print Web API 
@@ -13,13 +15,16 @@
     public List<string> apiData = new List<string>();
     public string _activity;
     public string _type;
+    public float _price;
+    public string _key;
+    //public string random = "sdfsd"; test var
 
     protected override async Task OnInitializedAsync()
     {
         await PrintWebApiResponse();
     }
-
-    private async Task PrintWebApiResponse()
+    [Fact]
+    public async Task PrintWebApiResponse()
     {
         var response = await Http.GetStringAsync("https://www.boredapi.com/api/activity/");
         Data? factData = JsonSerializer.Deserialize<Data>(response);
@@ -27,5 +32,11 @@
         Console.WriteLine(factData.activity);
         _activity = factData.activity;
         _type = factData.type;
+        _price = factData.price;
+        _key = factData.key;
+        Xunit.Assert.NotNull(response);
+        //Xunit.Assert.NotStrictEqual(random, _key);
+        
+
     }
 }
