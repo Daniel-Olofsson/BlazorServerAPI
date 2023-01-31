@@ -4,13 +4,15 @@
 @inject HttpClient Http
 
 <p>@_activity</p>
+<p>@_type</p>
 <button onclick=@(async () => await PrintWebApiResponse())>Print Web API 
     Response</button>
 
 @functions {
     public List<string> apiData = new List<string>();
     public string _activity;
-    
+    public string _type;
+
     protected override async Task OnInitializedAsync()
     {
         await PrintWebApiResponse();
@@ -23,5 +25,6 @@
         Console.WriteLine(response);
         Console.WriteLine(factData.activity);
         _activity = factData.activity;
+        _type = factData.type;
     }
 }
