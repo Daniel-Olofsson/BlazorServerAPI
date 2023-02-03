@@ -1,0 +1,16 @@
+﻿h1 {
+    color: brown;
+    font-family: 'Pacifico', cursive;
+    font-size: 48px;
+}
+
+button {
+    background-color: coral;
+    font-family: 'Pacifico', cursive;
+    font-size: 12px;
+}
+p {
+    color: brown;
+    font-family: 'Lobster', cursive;
+    font-size: 128px;
+}

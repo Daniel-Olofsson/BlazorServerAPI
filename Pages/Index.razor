@@ -1,27 +1,24 @@
 ﻿@page "/"
 @using System.Text.Json;
 @using BlazorServerAPI.Models;
+@using BlazorServerAPI.Helpers;
 @inject HttpClient Http
 
+
+<body>
+    @*<button onclick=@(async () => await Helpers.ApiResponseTest.PrintWebApiResponse())>I´m bored.. what can I do?</button>*@
+    <button onclick=@(async () => await OnInitializedAsync())>I´m bored.. what can I do?</button>
 <p>@_activity</p>
-<button onclick=@(async () => await PrintWebApiResponse())>Print Web API 
-    Response</button>
+    <br>
+    <h1>Don't think, just do it!</h1>
+</body>
 
 @functions {
     public List<string> apiData = new List<string>();
     public string _activity;
-    
+
     protected override async Task OnInitializedAsync()
     {
-        await PrintWebApiResponse();
-    }
-
-    private async Task PrintWebApiResponse()
-    {
-        var response = await Http.GetStringAsync("https://www.boredapi.com/api/activity/");
-        Data? factData = JsonSerializer.Deserialize<Data>(response);
-        Console.WriteLine(response);
-        Console.WriteLine(factData.activity);
-        _activity = factData.activity;
+        _activity = await Helpers.ApiResponseTest.PrintWebApiResponse();
     }
 }
