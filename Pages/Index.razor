@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @using System.Text.Json;
 @using BlazorServerAPI.Models;
 @using BlazorServerAPI.Helpers;
@@ -6,19 +6,25 @@
 
 
 <body>
-    @*<button onclick=@(async () => await Helpers.ApiResponseTest.PrintWebApiResponse())>I´m bored.. what can I do?</button>*@
     <button onclick=@(async () => await OnInitializedAsync())>I´m bored.. what can I do?</button>
 <p>@_activity</p>
+
     <br>
     <h1>Don't think, just do it!</h1>
 </body>
 
+
 @functions {
+
     public List<string> apiData = new List<string>();
     public string _activity;
 
+
+    public string _type;
+
     protected override async Task OnInitializedAsync()
     {
-        _activity = await Helpers.ApiResponseTest.PrintWebApiResponse();
+        await PrintWebApiResponse();
     }
+
 }
