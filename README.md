@@ -1,0 +1,2 @@
+# BlazorServerAPI
+Blazor api call
