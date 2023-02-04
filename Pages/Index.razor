@@ -24,7 +24,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await PrintWebApiResponse();
+        _activity = await Helpers.ApiResponseTest.PrintWebApiResponse();
     }
 
 }
